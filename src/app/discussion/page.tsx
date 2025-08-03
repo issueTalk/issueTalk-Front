@@ -22,7 +22,6 @@ function RoomCard({ title, hash, stat, type, onEnter }) {
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [selectedPeople, setSelectedPeople] = useState("1:1");
   const [isPublic, setIsPublic] = useState(true);
   const [password, setPassword] = useState("");
@@ -40,7 +39,7 @@ export default function Home() {
         </TabWrap>
         <CardList>
           {rooms.map((room, idx) => (
-            <RoomCard key={idx} {...room} onEnter={() => setPasswordModalOpen(true)} />
+            <RoomCard key={idx} {...room} onEnter={() => alert("참가")} />
           ))}
         </CardList>
       </Inner>
@@ -71,29 +70,21 @@ export default function Home() {
                 <ToggleBtn selected={isPublic} onClick={() => setIsPublic(true)}>예</ToggleBtn>
                 <ToggleBtn selected={!isPublic} onClick={() => setIsPublic(false)}>아니요</ToggleBtn>
               </ButtonGroup>
-
+              {!isPublic && (
+                <>
+                    <Label>비밀번호</Label>
+                    <Input
+                    type="password"
+                    placeholder="비밀번호를 입력해주세요."
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    />
+                </>
+              )}
               <Label>토론주제</Label>
               <Input placeholder="토론주제를 입력해주세요." />
 
               <SubmitBtn>방생성</SubmitBtn>
-            </ModalContent>
-          </Modal>
-        </ModalBackdrop>
-      )}
-
-      {passwordModalOpen && (
-        <ModalBackdrop>
-          <Modal>
-            <CloseBtn onClick={() => setPasswordModalOpen(false)}>×</CloseBtn>
-            <ModalContent>
-              <Label>비밀번호</Label>
-              <Input
-                type="password"
-                placeholder="비밀번호를 입력해주세요."
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <SubmitBtn onClick={() => alert(`입장 비번: ${password}`)}>입장하기</SubmitBtn>
             </ModalContent>
           </Modal>
         </ModalBackdrop>

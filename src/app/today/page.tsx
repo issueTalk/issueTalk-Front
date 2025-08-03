@@ -6,9 +6,9 @@ import styled from "styled-components";
 export default function Today(){
     return(
         <Container>
-           <TiltedCard /> 
-           <TiltedCard /> 
-           <TiltedCard /> 
+           <TiltedCard content={'윤석열 탄핵'} url={'/assets/today1.svg'}/> 
+           <TiltedCard content={'윤석열 탄핵'} url={'/assets/today1.svg'}/> 
+           <TiltedCard content={'윤석열 탄핵'} url={'/assets/today1.svg'}/> 
         </Container>
     )
 }
@@ -22,13 +22,13 @@ const Container =styled.div`
 `;
 
 
-function TiltedCard() {
+function TiltedCard({content,url}) {
   return (
     <Card>
       <TiltedImageWrapper>
-        <Image src="/assets/today1.svg" alt="카드 이미지" fill />
+        <Image src={url} alt="카드 이미지" fill />
       </TiltedImageWrapper>
-      <Label>윤석열 탄핵</Label>
+      <Label>{content}</Label>
     </Card>
   );
 }

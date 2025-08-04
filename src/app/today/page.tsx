@@ -18,7 +18,7 @@ const Container =styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15%;
+    gap: 5%;
 `;
 
 
@@ -26,7 +26,7 @@ function TiltedCard({content,url}) {
   return (
     <Card>
       <TiltedImageWrapper>
-        <Image src={url} alt="카드 이미지" fill />
+        <Image src={url} alt="카드 이미지" fill/>
       </TiltedImageWrapper>
       <Label>{content}</Label>
     </Card>
@@ -34,7 +34,7 @@ function TiltedCard({content,url}) {
 }
 
 const Card = styled.div`
-  width: 18%;
+  width: 24%;
   height: 800px;
   border-radius: 12px;
   overflow: hidden;
@@ -49,7 +49,6 @@ const TiltedImageWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  transform: skewY(-12deg); 
   transform-origin: top left;
   overflow: hidden;
 

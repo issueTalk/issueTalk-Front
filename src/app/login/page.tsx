@@ -2,8 +2,38 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: email,
+          password: password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem('token', data.accessToken);
+        localStorage.setItem('nickname', data.nickname);
+
+        alert(`${data.nickname}님 환영합니다!`);
+      } else {
+        alert(data.message || '로그인 실패');
+      }
+    } catch (err) {
+      alert('오류 발생: 서버와 연결할 수 없습니다.');
+    }
+  };
+
   return (
     <Container>
       <Card>
@@ -16,20 +46,31 @@ export default function LoginPage() {
         <Form>
           <FormItem>
             <Label>이메일</Label>
-            <Input type="email" placeholder="이메일을 입력해주세요." />
+            <Input
+              type="email"
+              placeholder="이메일을 입력해주세요."
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </FormItem>
 
           <FormItem>
             <Label>비밀번호</Label>
-            <Input type="password" placeholder="비밀번호를 입력해주세요." />
+            <Input
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </FormItem>
         </Form>
 
-        <Button>로그인</Button>
+        <Button onClick={handleLogin}>로그인</Button>
       </Card>
     </Container>
   );
 }
+
 const Container = styled.div`
   height: 90vh;
   display: flex;

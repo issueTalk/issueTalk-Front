@@ -2,8 +2,35 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useState } from 'react';
 
-export default function LoginPage() {
+export default function SignPage() {
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+
+  const handleSignup = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        password,
+        nickname,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert(data.message || '회원가입 성공!');
+    } else {
+      alert(data.message || '회원가입 실패');
+    }
+  };
+
   return (
     <Container>
       <Card>
@@ -14,26 +41,42 @@ export default function LoginPage() {
         <Title>회원가입</Title>
 
         <Form>
-        <FormItem>
+          <FormItem>
             <Label>이메일</Label>
-            <Input placeholder="이메일을 입력해주세요" />
-        </FormItem>
+            <Input
+              placeholder="이메일을 입력해주세요"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+            />
+          </FormItem>
 
           <FormItem>
             <Label>비밀번호</Label>
-            <Input type="password" placeholder="인증번호를 입력해주세요." />
+            <Input
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </FormItem>
+
           <FormItem>
             <Label>닉네임</Label>
-            <Input type="text" placeholder="비밀번호를 입력해주세요." />
+            <Input
+              type="text"
+              placeholder="닉네임을 입력해주세요."
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
           </FormItem>
         </Form>
 
-        <Button>로그인</Button>
+        <Button onClick={handleSignup}>회원가입</Button>
       </Card>
     </Container>
   );
 }
+
 const Container = styled.div`
   height: 90vh;
   display: flex;

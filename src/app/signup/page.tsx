@@ -15,20 +15,17 @@ export default function LoginPage() {
 
         <Form>
         <FormItem>
-        <Label>이메일</Label>
-          <InputWrapper>
-            <StyledInput placeholder="이메일을 입력해주세요" />
-            <SendButton>이메일 발송</SendButton>
-          </InputWrapper>
+            <Label>이메일</Label>
+            <Input placeholder="이메일을 입력해주세요" />
         </FormItem>
 
           <FormItem>
-            <Label>인증번호</Label>
-            <Input type="email" placeholder="인증번호를 입력해주세요." />
+            <Label>비밀번호</Label>
+            <Input type="password" placeholder="인증번호를 입력해주세요." />
           </FormItem>
           <FormItem>
-            <Label>비밀번호</Label>
-            <Input type="password" placeholder="비밀번호를 입력해주세요." />
+            <Label>닉네임</Label>
+            <Input type="text" placeholder="비밀번호를 입력해주세요." />
           </FormItem>
         </Form>
 

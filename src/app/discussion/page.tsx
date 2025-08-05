@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 function RoomCard({ title, hash, stat, type, onEnter }) {
   return (
@@ -30,6 +31,13 @@ export default function Home() {
     { title: "윤석열 탄핵", hash: "윤석열 탄핵", stat: "3/4", type: "비공개방" },
     { title: "윤석열 탄핵", hash: "윤석열 탄핵", stat: "2/4", type: "공개방" },
   ];
+
+  useEffect(()=>{
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/chat/room/all`)
+    .then(response => {
+      console.log(response)
+    })
+  })
 
   return (
     <Container>

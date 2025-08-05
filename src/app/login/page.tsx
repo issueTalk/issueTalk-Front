@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
@@ -26,12 +29,16 @@ export default function LoginPage() {
         localStorage.setItem('nickname', data.nickname);
 
         alert(`${data.nickname}님 환영합니다!`);
+        window.location.reload(); 
+        window.location.href = '/';
+        
       } else {
         alert(data.message || '로그인 실패');
       }
     } catch (err) {
       alert('오류 발생: 서버와 연결할 수 없습니다.');
     }
+
   };
 
   return (

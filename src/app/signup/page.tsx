@@ -3,11 +3,14 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function SignPage() {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
+
+  const router = useRouter();
 
   const handleSignup = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
@@ -26,6 +29,8 @@ export default function SignPage() {
 
     if (res.ok) {
       alert(data.message || '회원가입 성공!');
+      router.push("/");
+      
     } else {
       alert(data.message || '회원가입 실패');
     }

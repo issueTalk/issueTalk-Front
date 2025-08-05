@@ -1,6 +1,7 @@
 'use client';
 
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
 const Container = styled.div`
   min-height: 100vh;
   background-color: white;
@@ -52,6 +53,8 @@ const Button = styled.button<{ variant?: 'filled' | 'outline' }>`
 `;
 
 export default function HomePage() {
+
+  const router = useRouter();
   return (
     <Container>
       <Main>
@@ -60,7 +63,7 @@ export default function HomePage() {
         </Title>
         <SubText>정치와 사회 이슈를 AI의 도움으로 더 똑똑하게 토론해요!</SubText>
         <ButtonGroup>
-          <Button variant="outline">토론 시작하기</Button>
+          <Button variant="outline" onClick={() => router.push("/discussion")}>토론 시작하기</Button>
           <Button variant="filled">더 알아보기</Button>
         </ButtonGroup>
       </Main>

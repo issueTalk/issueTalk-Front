@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useState } from 'react';
+import axios from 'axios';
 
 import { useRouter } from 'next/navigation';
 
@@ -12,32 +13,18 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: email,
-          password: password,
-        }),
-      });
 
-      const data = await res.json();
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,{
+        userId : email,
+        password : password
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
-      if (res.ok) {
-        localStorage.setItem('token', data.accessToken);
-        localStorage.setItem('nickname', data.nickname);
-
-        alert(`${data.nickname}님 환영합니다!`);
-        window.location.reload(); 
-        window.location.href = '/';
-        
-      } else {
-        alert(data.message || '로그인 실패');
-      }
-    } catch (err) {
-      alert('오류 발생: 서버와 연결할 수 없습니다.');
-    }
 
   };
 

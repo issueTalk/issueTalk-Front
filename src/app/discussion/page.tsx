@@ -22,9 +22,7 @@ function RoomCard({ title, hash, stat, type, onEnter }) {
 }
 
 
-function RoomCreate(){
 
-}
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,6 +45,15 @@ export default function Home() {
       console.log(response)
     })
   })
+
+  function RoomCreate(){
+  axios.post(`${process.env.NEXT_PUBLIC_API_URL}/chat/room?topicId=${title}&maxTeamSize=${selectedPeople}`)
+  .then(response => {
+    console.log(response)
+  })
+
+  }
+
 
   return (
     <Container>

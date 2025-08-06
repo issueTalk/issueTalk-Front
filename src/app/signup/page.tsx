@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function SignPage() {
   const [userId, setUserId] = useState('');
@@ -12,29 +13,32 @@ export default function SignPage() {
 
   const router = useRouter();
 
-  const handleSignup = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+const handleSignup = async () => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+      {
+        userId: userId,
+        password: password,
+        nickname: nickname,
       },
-      body: JSON.stringify({
-        userId,
-        password,
-        nickname,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      alert(data.message || '회원가입 성공!');
-      router.push("/");
-      
+      {
+        withCredentials: true,
+      }
+    );
+    console.log("[회원가입 성공]", response.data);
+    // 성공 후 이동 로직도 여기에 추가 가능
+  } catch (error) {
+    console.error("[회원가입 실패]", error);
+    // 에러 응답이 있으면 메시지 출력
+    if (error) {
+      alert(error|| "회원가입 실패");
     } else {
-      alert(data.message || '회원가입 실패');
+      alert("네트워크 에러");
     }
-  };
+  }
+};
+
 
   return (
     <Container>

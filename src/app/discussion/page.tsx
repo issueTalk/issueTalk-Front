@@ -21,11 +21,20 @@ function RoomCard({ title, hash, stat, type, onEnter }) {
   );
 }
 
+
+function RoomCreate(){
+
+}
+
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedPeople, setSelectedPeople] = useState("1:1");
+  const [selectedPeople, setSelectedPeople] = useState("2");
   const [isPublic, setIsPublic] = useState(true);
   const [password, setPassword] = useState("");
+
+
+  const [title,settitle] = useState("");
+
 
   const rooms = [
     { title: "윤석열 탄핵", hash: "윤석열 탄핵", stat: "3/4", type: "비공개방" },
@@ -58,11 +67,11 @@ export default function Home() {
             <CloseBtn onClick={() => setModalOpen(false)}>×</CloseBtn>
             <ModalContent>
               <Label>방제목</Label>
-              <Input placeholder="방제목을 입력해주세요." />
+              <Input placeholder="방제목을 입력해주세요." value={title} onChange={e => settitle(e.target.value)}/>
 
               <Label>참여 인원수</Label>
               <ButtonGroup>
-                {["1:1", "2:2", "3:3"].map((label) => (
+                {["2", "4", "6"].map((label) => (
                   <SelectBtn
                     key={label}
                     selected={selectedPeople === label}
@@ -70,6 +79,7 @@ export default function Home() {
                   >
                     {label}
                   </SelectBtn>
+                  
                 ))}
               </ButtonGroup>
 
@@ -92,7 +102,7 @@ export default function Home() {
               <Label>토론주제</Label>
               <Input placeholder="토론주제를 입력해주세요." />
 
-              <SubmitBtn>방생성</SubmitBtn>
+              <SubmitBtn onClick={() => {RoomCreate()}}>방생성</SubmitBtn>
             </ModalContent>
           </Modal>
         </ModalBackdrop>

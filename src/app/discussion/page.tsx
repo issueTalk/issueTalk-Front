@@ -4,7 +4,15 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-function RoomCard({ title, hash, stat, type, onEnter }) {
+interface RoomCardProps {
+  title: string;
+  hash: string;
+  stat: any;
+  type: string;
+  onEnter: () => void;
+}
+
+function RoomCard({ title, hash, stat, type, onEnter }: RoomCardProps) {
   return (
     <Card>
       <CardTop>

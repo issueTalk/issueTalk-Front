@@ -7,7 +7,7 @@ import axios from "axios";
 interface RoomCardProps {
   title: string;
   hash: string;
-  stat: any;
+  stat: string;
   type: string;
   onEnter: () => void;
 }

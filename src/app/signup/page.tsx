@@ -16,7 +16,7 @@ export default function SignPage() {
 const handleSignup = async () => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, // 모든 api가 403이남
       {
         userId: userId,
         password: password,
